@@ -112,13 +112,13 @@ function two_pulse_evolution(H, M, ψ0, t, τ, B0, Bτ)
 end
 
 # call 3 pulse function M to mimic paper, with time between pulses t1, t2, t3. First pulse hits at t' = 0
-function final_state(H, M, ψ0, t1, t2, t3, B, B0, Bτ)
+function final_state(H, M, ψ0, t1, t2, t3, B0, Bt1, Bt2)
 
-    ψ1 = pulse(ψ0, B, M) # Hit with first pulse at t' = 0
+    ψ1 = pulse(ψ0, B0, M) # Hit with first pulse at t' = 0
     ψ2 = evolve(H, t1, ψ1) # evolve for a time t1
-    ψ3 = pulse(ψ2, B0, M) # Hit with second pulse at t' = t1
+    ψ3 = pulse(ψ2, Bt1, M) # Hit with second pulse at t' = t1
     ψ4 = evolve(H, t2, ψ3) # evolve for a time t2
-    ψ5 = pulse(ψ4, Bτ, M) # Hit with third pulse at t' = t1 + t2
+    ψ5 = pulse(ψ4, Bt2, M) # Hit with third pulse at t' = t1 + t2
     ψ6 = evolve(H, t3, ψ5) # evolve until measurment at t' = t1 + t2 + t3
 
     return ψ6
